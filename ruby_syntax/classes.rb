@@ -42,12 +42,12 @@ end
 
 class Koala < Mammal
   include Growth
-  WEIGH_GAIN_COEFF = 2.7
+  WEIGHT_GAIN_COEFF = 2.7
 
   def eat_grass(grass)
     if grass.is_a?(Grass)
       if grass.eatable
-        @weight += grass.nutrition_value * WEIGH_GAIN_COEFF
+        @weight += grass.nutrition_value * WEIGHT_GAIN_COEFF
       else
         puts "I won't eat this!..."
       end
