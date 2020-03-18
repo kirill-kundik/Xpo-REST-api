@@ -4,7 +4,7 @@ class CoursesController < ApplicationController
 
   def index
     @courses = ::Course.includes(:students).map do |course|
-      {id: course.id, name: course.name, students_count: course.students.count}
+      {id: course.id, name: course.name, students_count: course.students.size}
     end
   end
 
