@@ -1,0 +1,6 @@
+<tr>
+  <td><%= course.id %></td>
+  <td><%= course.name %></td>
+  <td><%= course.students.size %></td>
+  <td><%= link_to 'Edit', edit_course_path(course.id) if can?(:update, course) %></td>
+</tr>
