@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Helloapp</title>
+    <title>HelloApp</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -9,6 +9,8 @@
   </head>
 
   <body>
+    <h1>HelloApp</h1>
+    <%= render partial: '/layouts/logged_in_user' %>
     <%= yield %>
   </body>
 </html>

@@ -1,4 +1,11 @@
 <h1>Courses</h1>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Students #</th>
+    <th>Actions</th>
+  </tr>
 <% @courses.each do |course| %>
-  <%= render partial: 'student', locals: {course: course} %> 
+  <%= render partial: 'course', locals: {course: course} %>
 <% end %>

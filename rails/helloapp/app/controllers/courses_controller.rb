@@ -1,11 +1,11 @@
 class CoursesController < ApplicationController
+  layout 'courses'
   protect_from_forgery except: %i[update destroy]
-  before_action :load_course, only: %i[update destroy]
+  before_action :load_course, only: %i[update destroy edit]
+  before_action :authenticate_user!
 
   def index
-    @courses = ::Course.includes(:students).map do |course|
-      {id: course.id, name: course.name, students_count: course.students.size}
-    end
+    @courses = ::Course.accessible_by(current_ability).includes(:students)
   end
 
   def destroy
@@ -13,8 +13,13 @@ class CoursesController < ApplicationController
   end
 
   def update
+    authorize! :update, @course
     @course.attributes = course_params
     @course.save
+    redirect_to :courses
+  end
+
+  def edit
   end
 
   private
@@ -24,6 +29,6 @@ class CoursesController < ApplicationController
   end
 
   def course_params
-    params.permit(:name)
+    params.require(:course).permit(:name)
   end
 end
