@@ -1,7 +1,7 @@
 class CoursesController < ApplicationController
   layout 'courses'
   protect_from_forgery except: %i[update destroy]
-  before_action :load_course, only: %i[update destroy edit]
+  before_action :load_course, only: %i[update destroy edit do_hard_work]
   before_action :authenticate_user!
 
   def index
@@ -20,6 +20,11 @@ class CoursesController < ApplicationController
   end
 
   def edit
+  end
+
+  def do_hard_work
+    ::ProcessCourseWorker.perform_async(@course.id)
+    render plain: 'processing started...'
   end
 
   private

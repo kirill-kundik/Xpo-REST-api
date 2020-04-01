@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :courses do
     member do
       get :do_smth_with_course
+      get :do_hard_work
     end
     collection do
       put :do_smth_with_all_courses

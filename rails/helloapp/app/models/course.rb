@@ -13,4 +13,10 @@ class Course < ApplicationRecord
   def do_other_thing
     puts 'hello'
   end
+
+  def do_hard_work
+    puts 'doing smth hard...'
+    sleep 10
+    puts 'finished'
+  end
 end
