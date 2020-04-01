@@ -30,4 +30,11 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  ui:
+    courses:
+      title: 'Courses from I18n file'
+      columns:
+        name: Name
+        students_number: 'Students #'
+    generic:
+      actions: Actions

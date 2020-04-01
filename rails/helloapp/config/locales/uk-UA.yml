@@ -1,0 +1,9 @@
+uk-UA:
+  ui:
+    courses:
+      title: 'Курси'
+      columns:
+        name: Назва
+        students_number: Кількість студентів
+    generic:
+      actions: 'Дії'

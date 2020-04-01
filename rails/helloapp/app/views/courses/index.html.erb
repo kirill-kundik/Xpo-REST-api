@@ -1,10 +1,10 @@
-<h1>Courses</h1>
+<h1><%= t('ui.courses.title') %></h1>
 <table>
   <tr>
     <th>ID</th>
-    <th>Name</th>
-    <th>Students #</th>
-    <th>Actions</th>
+    <th><%= t('ui.courses.columns.name') %></th>
+    <th><%= t('ui.courses.columns.students_number') %></th>
+    <th><%= t('ui.generic.actions') %></th>
   </tr>
 <% @courses.each do |course| %>
   <%= render partial: 'course', locals: {course: course} %>
