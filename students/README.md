@@ -30,7 +30,7 @@ git push origin example_team_project
 * Автоматизоване тестування. Як мінімум: деякі unit-тести і acceptance-тест для main flow
 
 #### Опціональні
-* Бажано додати 2+ локалі, не використовувати hardcoded тексти в коді
+* Бажано додати 2+ локалі, не використовувати hardcoded тексти
 * Бажано підготовка для запуску в production середовищі, використання production-ready ruby сервера e.g. Puma, Unicorn, Passenger і production-ready СКБД, e.g. PostgreSQL
 
 ### Загальна інформація
