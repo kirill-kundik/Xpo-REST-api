@@ -6,6 +6,10 @@
     <th><%= t('ui.courses.columns.students_number') %></th>
     <th><%= t('ui.generic.actions') %></th>
   </tr>
-<% @courses.each do |course| %>
-  <%= render partial: 'course', locals: {course: course} %>
-<% end %>
+  <% @courses.each do |course| %>
+    <%= render partial: 'course', locals: {course: course} %>
+  <% end %>
+</table>
+<div>
+  <%= link_to t('ui.courses.new'), new_course_path, class: 'btn btn-primary' %>
+</div>

@@ -33,6 +33,7 @@ en:
   ui:
     courses:
       title: 'Courses from I18n file'
+      new: 'Add New Course'
       columns:
         name: Name
         students_number: 'Students #'
