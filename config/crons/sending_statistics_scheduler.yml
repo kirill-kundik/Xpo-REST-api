@@ -1,0 +1,6 @@
+sending_statistics_to_users:
+  cron: '0 0 14 * * * Europe/Kiev' # for production (each day at 2pm)
+#  cron: '*/1 * * * * Europe/Kiev' # for development use only (every 1 minute)
+  class: SendExpoStatisticsToUserWorker
+  queue: default
+  description: 'This job sends expo statistics (comments, likes, visits) to theirs organizers'

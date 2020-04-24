@@ -1,0 +1,61 @@
+version: '3'
+services:
+  db:
+    image: postgres:9.6
+    container_name: rails_api_db
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "127.0.0.1:5432:5432"
+  redis:
+    image: redis:latest
+    restart: always
+    container_name: rails_api_redis
+    ports:
+      - "127.0.0.1:6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli","ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  web:
+    build:
+      context: .
+      args:
+        - RAILS_ENV=${RAILS_ENV}
+    container_name: rails_api_web
+    environment:
+      DEVISE_SECRET_KEY: $DEVISE_SECRET_KEY
+      RAILS_ENV: $RAILS_ENV
+      GMAIL_USER: $GMAIL_USER
+      GMAIL_PASS: $GMAIL_PASS
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+      - redis
+  sidekiq:
+    build:
+      context: .
+      args:
+        - RAILS_ENV=${RAILS_ENV}
+    command: sidekiq -e $RAILS_ENV
+    container_name: rails_api_sidekiq
+    environment:
+      DEVISE_SECRET_KEY: $DEVISE_SECRET_KEY
+      RAILS_ENV: $RAILS_ENV
+      GMAIL_USER: $GMAIL_USER
+      GMAIL_PASS: $GMAIL_PASS
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+      - redis

@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width" />
+</head>
+<body>
+<p>Dear, <b><%= @email_details[:user_name] %></b>!</p>
+<p>
+  Your expos statistics for the last day<br/>
+</p>
+<% @email_details[:expos].each do |expo| %>
+  -------------------------------------------
+  <p><b>Expo Name</b>: <%= expo[:name] %></p>
+  <p>Total likes: <%= expo[:total_likes] %></p>
+  <p>Total views: <%= expo[:total_views] %></p>
+  <p>Total comments: <%= expo[:total_comments] %></p>
+  <% if expo[:last_likes] > 0 %>
+    <p><b>Congratulations!</b> You have +<%= expo[:last_likes] %> like(s) in 24 hours!</p>
+  <% end %>
+  <% if expo[:last_comments].size > 0 %>
+    <p><b>Congratulations!</b> You have +<%= expo[:last_comments].size %> comment(s) in 24 hours!</p>
+    <p>Here some of them:</p>
+    <% expo[:last_comments].sample(5).each do |comment| %>
+      <p>==================</p>
+      <p>&#x09;<%= comment[:user_login] %> at <%= comment[:created_at] %>: <%= comment[:text] %></p>
+      <p>&#x09;Likes: <%= comment[:likes_count] %></p>
+      <p>==================</p><br/>
+    <% end %>
+  <% end %>
+  <br/>
+<% end %>
+Kind regards,
+<i>Your Xpo.</i>
+</body>
+</html>

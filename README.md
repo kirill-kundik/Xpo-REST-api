@@ -1,28 +1,41 @@
-# Ruby Course 2020
+# xpo-backend
 
-Ruby & Rails programming course, NaUKMA 2020
+Public api available at: https://xpo.restful-api.site
 
-### Announcements ###
-* Залік - 22.04.2020
-* Дедлайн контрольного проекта - 22.04.2020
+How to use api you can check from `doc/xpo.postman_collection.json`
 
-### Матеріали Курсу
-* [Lecture screencasts & online lecture videos](https://drive.google.com/drive/folders/1KVASoqg4tOi8jQROuzvZ0m_3zrHBEmmg)
-* [2 лекції 8.04.2020: Asset (js, css, images) management in Rails & automated testing](https://web.microsoftstream.com/video/17c56098-54cf-4ec8-a557-8b8e463c7714)
-* [Repository 2019 року (Gitlab)](https://gitlab.com/pavlozahozhenko/ruby-course-2019)
-* [Repository 2017 року (BitBucket)](https://bitbucket.org/burius/ruby_course_2017)
-* [Repository 2016 року (BitBucket)](https://bitbucket.org/burius/ror_course)
+### Installing dependencies:
+1. Clone this repo `git clone <repo_url>`
+1. Create `.env` file (`touch .env`)
+1. Generate new secret `bundle exec rake secret`
+1. Create `DEVISE_SECRET_KEY` variable in `.env` file with value from previous step
+1. Create `RAILS_ENV` variable in `.env` with value `production` or `development`
 
-### Контрольний Проект
-* [Вимоги до проекта](https://gitlab.com/pavlozahozhenko/ruby-course-2020/tree/master/students#project-requirements-info)
+### Installing dependencies part 2 (non-Docker users):
+1. Install [postgres](https://postgresql.org)
+1. Install [redis](https://redis.io)
+1. Install dependencies `bundle install`
 
-### Useful Links
-#### Ruby
-* [Official Ruby documentation (core API)](http://ruby-doc.org/core-2.7.0/)
-* [Ruby style guide](https://github.com/bbatsov/ruby-style-guide) by bbatsov
-* [Rails API documentation](http://api.rubyonrails.org/)
+### Installing dependencies part 2 (Docker users):
+1. Check [Docker](https://www.docker.com/) and [docker-compose](https://docs.docker.com/compose/install/) installations
+1. Run `docker-compose build` for building app image
 
-### Legendary Rubyists on the Web
-* [matz](https://twitter.com/yukihiro_matz) - Yukihiro Matsumoto, author of Ruby. MINASWAN (Matz is Nice And So We Are Nice)
-* [dhh](https://twitter.com/dhh) - David Heinemeier Hansson, initial author of Ruby on Rails
-* [tenderlove](https://twitter.com/tenderlove) - Aaron Patterson, Rails core contributor and a very nice guy
+### Deployment instructions (non-Docker users):
+
+1. Check if postgres instance is available (start cmd: `systemctl start postgres` or `brew services start postgres`)
+1. Check if redis instance is available (start cmd: `redis-server`)
+1. Create and setup database: `rake db:{create,setup}`
+1. Start the sidekiq: `sidekiq -e $RAILS_ENV`
+* To start development server: `rails server webrick -b 127.0.0.1 -p 3000 -e development`
+* To start production Puma server: `rails server Puma -b 127.0.0.1 -p 3000 -e production`
+
+### Deployment instructions (Docker users):
+1. Up postgres service `docker-compose up db redis`
+1. (Optional, if needed) Run db setup: `docker-compose run web rake db:{create,setup}`
+1. Start the sidekiq: `docker-compose up sidekiq`
+1. To start server: `docker-compose up web`
+
+***
+
+* To stop server for non-Docker users: `CTRL+C`
+* To stop server for Docker users: `docker-compose stop` or `docker-compose down` for stopping and removing all containers/networks/volumes that were created to start the app.
